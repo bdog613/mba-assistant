@@ -60,6 +60,8 @@ Moreover, Furthermore, Additionally, Notably, Importantly, Consequently, Thus, H
 - **Same-length paragraphs** all the way down.
 - **"On one hand ... on the other hand"** hedging when a position is wanted.
 - **Clipped staccato where flow is better.** Two short sentences chopped apart ("It used to be a shortcut. Now it is a liability.") when one flowing line reads better joined ("It used to be a shortcut but now it's a liability."). Flow beats grammatical tidiness. Read it aloud.
+- **List severed into a fragment (hard tell, NOT deliberate punch).** A noun list chopped off its own sentence and dropped as a standalone fragment: "...20 to 30 deliverables into twelve months. Essays, case analyses, memos, final projects." Fold it back into the sentence as an appositive in parentheses or commas: "...20 to 30 deliverables (essays, case analyses, memos, final projects) into twelve months." Flag every one of these, no exceptions.
+- **Weak clauses chopped where they should flow.** Two or more flat observations chopped into separate short sentences ("The deadlines stack. And the stakes aren't trivial.") when they should fold into one line with a consequence ("..., which is a huge commitment of time, energy, and focus."). A short sentence must EARN its full stop with real emphasis. Default to flagging staccato, not excusing it as "deliberate punch"; keep a fragment only when the emphasis is genuinely earned. Be stricter here than a first read wants to be.
 
 ## 12. Hedging when an opinion is wanted
 "It depends", "There are many factors", "Both have their merits", "It is a complex issue", used to dodge taking a position. Take the position unless the tradeoff itself is the point.

@@ -8,6 +8,7 @@ The detailed mechanics behind Phases 2-4 of `SKILL.md`. The orchestrator (main s
 - **Section agents** (sub-agents, parallel), each owns one section and writes it in the student's voice.
 - **Reviewer** (sub-agent), scores the assembled draft against the three bars. Never writes the deliverable; only judges and prescribes fixes.
 - **Slop-checker** (sub-agent, runs in parallel with the reviewer), scans the draft against `references/ai-slop.md` and returns a flag list. Never rewrites. The orchestrator decides what to do with each flag.
+- **Adversarial critic** (sub-agent, runs in parallel with the reviewer), attacks the draft to find holes in logic, technical/domain depth, rigor, writing, style, and tone, the way a skeptical grader would. Ranks each hole by severity (real hole / soft spot / taste) and proposes a fix or a defense. Never rewrites. The orchestrator decides which findings to act on, which to defend and ignore, and which to surface to the student.
 
 Keep agents to a sensible number: one per major section, plus a reviewer and a slop-checker. A 5-section paper = 5 section agents + 2 reviewers. Do not spawn an agent per paragraph.
 
@@ -69,9 +70,23 @@ Keep agents to a sensible number: one per major section, plus a reviewer and a s
 > `quote | location (section) | rule broken (catalog number + name) | plain-word fix | clear slop OR judgment call`
 >
 > Mark a hit "judgment call" (not "clear slop") when the word may be correct in context, sits inside a quote or a real title, is a genuine list, or the fix would change the meaning. Read the "When NOT to flag" section of the catalog and respect it. Better to flag and mark low-confidence than to miss a tell, but do not flag honest words just for existing.
-
 >
 > Return only the flag table, plus a one-line count of clear-slop vs judgment-call hits.
+
+## Adversarial-critic brief (copy this, fill the brackets)
+
+> You are an ADVERSARIAL critic. Attack this deliverable and find every hole a sharp, skeptical grader would catch. Be ruthless and specific. Do NOT be encouraging. Assume the grader is hunting for reasons to dock points.
+>
+> **The assignment + rubric:** [paste]
+> **The draft:** [paste, or point to the file]
+>
+> Attack on these fronts and find the WEAKEST points in each:
+> 1. **Logic holes.** Unsupported claims, hand-waving, leaps, internal contradictions, anything asserted but not argued. Where would a grader write "evidence?" in the margin?
+> 2. **Depth for the actual course or domain.** Does the work show real understanding, or could a grader dismiss it as surface-level? Where is a claim thin or overstated?
+> 3. **Rigor.** Soft or unsupported numbers, analysis the rubric implies but the draft skips, conclusions without support.
+> 4. **Writing, style, tone.** Vague, salesy, defensive, inconsistent, or weak sentences. Quote the worst.
+>
+> For EACH attack return one row: the attack | location | severity (REAL HOLE / SOFT SPOT / TASTE) | the fix OR the defense. Rank most-damaging first, quote exactly, find the 5 to 8 most damaging, no trivia. End with a one-line "single biggest risk" verdict.
 
 ## Orchestrator triage of slop flags
 This is the "orchestrator decides per item" step. For each flag the slop-checker returns:
@@ -79,6 +94,15 @@ This is the "orchestrator decides per item" step. For each flag the slop-checker
 - **False positive** (correct-in-context word, real quote, genuine list): keep it, note the reason in one line.
 - **Judgment call** (the fix changes meaning, tone, or a claim, or the student may want the original): hold it.
 Apply all the clear fixes automatically. Then present the held judgment calls to the student as one short batched menu (quote, the issue, change vs keep). Do not ask about the clear ones.
+
+## Orchestrator triage of adversarial-critic findings
+The critic over-attacks on purpose, so you do NOT apply everything. That filtering is the orchestrator's job. For each finding, decide:
+- **A real hole you agree with:** fix it.
+- **A suggestion that conflicts with a higher rule** (e.g. the critic says "add hard numbers" but the no-fabrication rule says don't invent them): ignore it, note the one-line reason.
+- **Taste, or an attack that's simply wrong:** ignore it, note why.
+- **A genuine judgment call** (a real tradeoff the student should own, like cutting depth versus adding length): surface it to the student.
+
+Then show the student the triage: what you fixed, what you ignored and why, and the judgment calls you're escalating. Choosing what to listen to and what to ignore is the whole point of the critic.
 
 ## Pass thresholds
 
@@ -91,8 +115,9 @@ Apply all the clear fixes automatically. Then present the held judgment calls to
 round = 1
 draft = assemble(section_agents)
 loop:
-    review, slop_flags = run reviewer(draft) and slop_checker(draft) in parallel
+    review, slop_flags, critic_findings = run reviewer(draft), slop_checker(draft), and adversarial_critic(draft) in parallel
     apply clear-slop fixes automatically; hold judgment-call slop flags for the student
+    triage critic_findings: fix real holes, ignore taste and rule-conflicts (note why), surface judgment calls to the student
     if all three bars >= 4/5 AND no rubric criterion missing AND no open slop judgment calls:
         break  ->  go to Phase 5 (assemble & deliver)
     if round >= 3:

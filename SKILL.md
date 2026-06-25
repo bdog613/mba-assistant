@@ -38,6 +38,8 @@ So when an assignment says "ideate a product," this skill does not return the ob
 
 When invoked, work through these phases in order. Do not skip the quality loop (Phase 4), it is what separates this from generic output.
 
+**The proactive rule (applies to every phase).** This skill carries the bulk of the work, so it leads. When the assignment needs a choice, which company to analyze, which market, which case, which angle or strategy, the system does the research and the thinking and puts concrete options in front of you to pick from, combine, or override with your own. It does NOT hand you an open-ended question that makes you go research or brainstorm on your own first. You steer and decide; the system does the legwork. The only things asked as a plain question are facts only you have (real costs, the grade target, group members), and those come as a short specific ask, never as homework.
+
 ### Phase 0: Load the student
 1. Read [profile.md](profile.md) and [corrections-log.md](corrections-log.md) in full.
 2. If `profile.md` is missing, empty, or marked `confirmed: false`, STOP and run [references/first-run-setup.md](references/first-run-setup.md) before anything else.
@@ -51,12 +53,12 @@ When invoked, work through these phases in order. Do not skip the quality loop (
    - **The rubric**, every graded criterion and its weight. If there is no explicit rubric, infer the evaluation criteria from the instructions and the course, and list them.
    - **Hard constraints**, due date, individual vs group, citation style, any "must include / must not" rules.
    - **Creative or fixed?** Does the assignment ask you to invent something original (ideate, propose, design, pitch, create a concept), or execute a prescribed deliverable (analyze, compare, summarize, solve)? This decides whether Phase 1.5 runs.
-3. Ask clarifying questions ONLY for material gaps you cannot infer (e.g. page limit truly unstated, group members' division of work, a referenced file not provided). Batch them into one short list. Otherwise proceed, do not interrogate.
+3. Fill material gaps proactively, do not interrogate. When a gap is a choice (which company, market, case, topic, or angle), research it and propose concrete options for you to pick or customize (per the proactive rule above), rather than asking open-ended. Only ask a bare question for facts that only you have (a real cost, the grade target, group members, a referenced file not provided). Batch any such asks into one short list, then proceed.
 
 ### Phase 1.5: Ideate (creative assignments only, gated)
 Run this ONLY when all three hold: the assignment needs creativity (no single prescribed answer), you have not already given a solution, and your context does not already point to a clear idea. If any one is false, skip straight to Phase 2.
 
-When it runs, it is interactive. It asks you for your own thoughts FIRST, names the obvious answer and steers away from it, spawns a divergent-ideas sub-agent (non-obvious directions grounded in your lens) and an originality red-team sub-agent (would 20 other students land on this?), brainstorms with you until one idea has real energy, and converges on a confirmed creative brief. Phase 2 and Phase 3 then build on that brief. Full playbook in [references/brainstorm.md](references/brainstorm.md).
+When it runs, it is interactive but it LEADS. It does the legwork first: it spawns a divergent-ideas sub-agent (non-obvious directions grounded in your lens) and, when the assignment needs a subject you must pick (a company, market, or case), researches concrete real candidates. Then it puts those options in front of you with the hook and the catch of each, names the obvious answer and steers away from it, and ideates with you (pick one, combine, or bring your own) until one has real energy. An originality red-team sub-agent checks it (would 20 other students land on this?), and it converges on a confirmed creative brief. It never opens with a blank-page question. Phase 2 and Phase 3 build on the brief. Full playbook in [references/brainstorm.md](references/brainstorm.md).
 
 Why it exists: originality starts at the idea. Good prose around the obvious idea is still a generic submission. This is the anti-generic rule applied one level up from the writing.
 
@@ -78,6 +80,8 @@ This is the heart of the skill. Spawn a **reviewer** sub-agent that scores the a
 
 In parallel, run a dedicated **slop-checker** sub-agent that scans the draft against [references/ai-slop.md](references/ai-slop.md) and returns a flag list (quote, the rule it breaks, a plain-word fix, and whether it is clear slop or a judgment call). The orchestrator applies the clear fixes automatically and batches the judgment calls to you, per the triage rules in [references/orchestration.md](references/orchestration.md).
 
+Also in parallel, run an **adversarial critic** sub-agent that attacks the draft for holes in logic, depth, rigor, writing, and tone, and ranks each by severity (full brief and triage rules in [references/orchestration.md](references/orchestration.md)). The critic over-attacks on purpose. The orchestrator decides which findings to fix, which to ignore (with a one-line reason, e.g. when a suggestion conflicts with the no-fabrication or concise rules), and which to surface to you as a judgment call. That filtering is the point, not blind application.
+
 The reviewer returns a score per bar plus a concrete fix list. If any bar is below threshold, the orchestrator routes the specific fixes back to the responsible section agent(s) and re-reviews. Repeat until all three bars pass **or** 3 rounds are reached, then stop and surface the remaining gaps to you honestly rather than looping forever.
 
 ### Phase 5: Assemble & deliver
@@ -95,9 +99,10 @@ When you give corrections on the output:
 ## The quality bar (never ship below it)
 
 A deliverable is done only when the reviewer confirms all three:
-- Every rubric criterion addressed at appropriate depth.
-- Reads in your voice with zero AI slop: plain words (no buzzwords like "beachhead" or "leverage"), varied human rhythm (short lines next to long, the occasional fragment), no colon-elaboration or signposting tics, no em dashes. See the banned-slop list in profile.md.
-- Answers the real prompt, in the right format and length.
+- ✅ Every rubric criterion addressed at appropriate depth.
+- ✅ Reads in your voice with zero AI slop: plain words (no buzzwords like "beachhead" or "leverage"), varied human rhythm (short lines next to long, the occasional fragment), no colon-elaboration or signposting tics, no em dashes. See the banned-slop list in profile.md.
+- ✅ Answers the real prompt, in the right format and length.
+- ✅ Concise, and honest about inputs. No padding and no invented numbers. Length matches what the work needs, not the most you could write, unless the rubric sets a minimum. When a section needs real data you have (costs, prices, counts, specifics), the skill asked for it instead of fabricating an "illustrative" estimate, forecast, or model.
 
 If you cannot reach all three within the iteration cap, say so plainly and show what's missing. Do not claim done when it isn't.
 
