@@ -88,6 +88,43 @@ Formal writing that never contracts reads stiff and machine-made. Humans contrac
 
 ---
 
+## 15. Formatting and document tells (scan the FINAL exported file, not just the prose)
+These are the loudest giveaways in a submitted document and the easiest for a grader to spot at a glance. They come from how AI tools format and export, and from markdown leaking through. Source: Wikipedia "Signs of AI writing" plus academic-integrity and editor guides (researched 2026-06-25).
+
+**Punctuation and characters (convert all to plain):**
+- Em dashes (the long dash) used mid-sentence, especially more than rarely. The single most notorious tell. Use commas, parentheses, or a colon.
+- En dashes standing in for an em dash.
+- Curly / smart quotes and curly apostrophes. Use straight quotes.
+- The single-glyph ellipsis. Use three periods.
+- Stray non-breaking or special Unicode spaces.
+
+**Layout:**
+- Horizontal rules / divider lines between sections. Humans don't do this in essays; AI does it constantly. Remove them.
+- Headings in a different font, size, or weight from the body, or Title Case In Headings. Make headings the same font and size as the body, set apart by bold and/or underline only.
+- Bold overuse: bolding a lead-in term on every bullet ("**Term:** description"), or bold scattered for emphasis. A list of "**Bold:** text" bullets is one of the loudest structural tells. De-bold them.
+- Emoji as bullets or section markers. Remove.
+- Over-bulleting where prose belongs; an essay that's mostly bullets. Prefer paragraphs.
+- Perfectly uniform paragraph length and spacing.
+
+**Markdown / artifact leaks (smoking-gun tells, zero tolerance):**
+- Literal `**`, `##`, or backticks that should have rendered but appear as raw text in the final file.
+- Model citation artifacts: contentReference, oaicite, oai_citation, :contentReference, ":::", "+1", turn0search, grok_card.
+- Leftover placeholders: "[insert X]", "[Your Name]", "[Date]".
+- Pasted dark background or off-color text from a chatbot UI. Paste as plain text, then style.
+
+**Chatbot residue (instant fail if left in):**
+- "Certainly!", "Sure!", "Of course!" openers; "As an AI language model"; knowledge-cutoff disclaimers; "As you can see", "I hope this helps", "Let me know if"; restating the prompt back as the thesis.
+
+## 16. The human-document format (apply to every exported deliverable)
+Unless the assignment says otherwise, export the deliverable to look like a human wrote it in Word, in the format a one-year MBA program (RUNI) expects:
+- **Font: David, 12pt** (David Libre is the open-source equivalent and renders identically in a PDF).
+- **Line spacing: 1.5.**
+- **Alignment: justified** (both edges).
+- **Headings: the same font and 12pt size as the body**, set apart by bold and/or underline only. Never a bigger or different heading font.
+- **No horizontal rules, no bold-bullet lead-ins, straight quotes, no em dashes.**
+
+The exact export template and print recipe are in [pdf-export.md](pdf-export.md).
+
 ## When NOT to flag (avoid false positives)
 - A banned word inside a direct quote or a real source title.
 - A technical term used correctly (for example "leverage" in a finance ratio, or "vertical" naming a real market segment) where no plainer word fits.

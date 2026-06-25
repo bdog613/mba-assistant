@@ -85,7 +85,7 @@ Also in parallel, run an **adversarial critic** sub-agent that attacks the draft
 The reviewer returns a score per bar plus a concrete fix list. If any bar is below threshold, the orchestrator routes the specific fixes back to the responsible section agent(s) and re-reviews. Repeat until all three bars pass **or** 3 rounds are reached, then stop and surface the remaining gaps to you honestly rather than looping forever.
 
 ### Phase 5: Assemble & deliver
-1. Stitch the approved sections into one document in the required format.
+1. Stitch the approved sections into one document in the required format. Export it to look like a human wrote it, not like AI: David font 12pt, 1.5 line spacing, justified, headings set apart only by bold/underline at the same 12pt size, no horizontal rules, no bold-bullet lead-ins, straight quotes, zero AI formatting tells. Scan the final file (not just the prose) against [references/ai-slop.md](references/ai-slop.md) sections 15-16, and use the export template in [references/pdf-export.md](references/pdf-export.md).
 2. **Show the full deliverable in the chat** (you read/copy from chat, never bury it in a file only) and also save it to a file next to where you're working.
 3. Append a short **rubric coverage map** at the end so you can see, criterion by criterion, that it's all there.
 
