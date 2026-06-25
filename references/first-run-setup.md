@@ -1,40 +1,41 @@
 # First-Run Setup
 
-Run this **only** when `profile.md` is missing, empty, or `confirmed: false`. Goal: end with a `profile.md` the student has verified, marked `confirmed: true`. After that, the skill never runs this again unless asked.
+Run this **only** when `profile.md` is missing, empty, a blank template, or `confirmed: false`. Goal: end with a `profile.md` you've verified and marked `confirmed: true`. After that, the skill never runs this again unless asked.
 
-The template ships with a blank `profile.md` (all `[bracketed placeholders]`, `confirmed: false`). So on a fresh install you'll almost always be in Case B, the short interview. Case A is for when a profile already has real content but hasn't been confirmed yet.
+The template ships with a blank `profile.md` (all `[bracketed placeholders]`, `confirmed: false`), so on a fresh install you'll almost always be in Case B below.
+
+The guiding rule: **learn the voice from your real writing, not from your biography.** Lead with writing samples and writing rules. Personal background is optional and comes last, only if you want to add it.
 
 ## Case B: a blank or new profile (the normal first run)
 
-Build the profile via a short interview. Ask these, batched into one message, not one question at a time:
-1. Name, university/program, and how long the program is.
-2. Background, what they did before, what they know well (this becomes their "lens" for non-generic answers).
-3. How they think about problems (academic/theoretical, practical/operator, creative, data-driven, etc.).
-4. Writing voice, formal or conversational, any hard rules (e.g. no em dashes), reading level to target.
-5. A writing sample, paste 1-2 paragraphs they've written, so the voice can be matched, not guessed.
-6. Program specifics, grade target, citation style, group vs individual norms, language.
+Build the profile from your writing, in this order. The skill batches the asks, but it leads with the samples and treats background as optional.
 
-Then write `profile.md` filling every placeholder with their answers, set `confirmed: true`, and continue.
+1. **Your previous writing. This is the main input, asked first.**
+   > Paste or drop in a few things you've written. Past graded assignments are best, but essays, memos, or long emails work too. Even one helps. I'll learn how you actually write from these, not from a description of it.
 
-Keep it to one round-trip if you can. Don't block the actual work on perfect profile completeness, anything still unknown can be filled the first time it matters.
+   The skill runs [voice-analysis.md](voice-analysis.md) on whatever you share and fills the Voice fingerprint. This is the primary signal. If you truly have nothing to share, it'll ask you to describe your writing instead, but real samples beat any description.
 
-## Case A: profile.md exists but is `confirmed: false`
+2. **Specific writing instructions.**
+   > Any hard rules for your writing? For example: no em dashes, formal or conversational, a target reading level, a citation style, anything you always want or never want.
 
-The profile already has real content (the student filled some of it in, or carried it over) but hasn't been verified. Do this:
-1. Show them the profile in the chat, readably (not as a file path).
-2. Point at any line that's still a placeholder or marked **(confirm)** and ask them to fill or correct those, batched into one short message.
-3. Ask the two highest-value open questions if still unknown:
-   - "What grade standard are we aiming for, top of class, or a solid pass?" (sets how hard the quality loop pushes)
-   - "What citation style does the program expect, if any?"
-4. Apply their answers, resolve the placeholders, set `confirmed: true`, and continue to the assignment.
+   These become your voice rules. The skill also grabs two practical basics to aim the work: your grade target (top of class or a solid pass) and whether assignments are graded solo or as a group.
 
-## Voice calibration from real writing (optional, highest-value step)
-The voice rules in profile.md get the writing close. Real samples get it right. At setup, and any time later, offer this:
+3. **Personal background. Optional, last, and only if you want it.**
+   > Optional: if you think it helps the work sound like you, tell me a bit about your background, what you do, what you know well. It gives the writing a point of view on open-ended prompts. Totally fine to skip.
 
-> Optional: paste or drop in 1 to 4 things you have written (past graded essays work best for coursework, but memos or long emails are fine). I will analyze how you actually write and store it, so future work matches your real voice instead of a generic one. Skip it and I will use the voice rules instead.
+   The background and lens only get filled if you offer them. Skip it and your samples and rules carry the voice. The skill never pushes for it.
 
-If the student provides samples, run [voice-analysis.md](voice-analysis.md) and fill the Voice fingerprint section of profile.md. If they skip, continue with the rules. Never block the work on this.
+Then it writes `profile.md`, sets `confirmed: true`, and continues. It won't lead with biography, and a blank background is not a problem.
+
+## Case A: profile.md already has real content but is `confirmed: false`
+
+If you carried over a profile or filled some of it in but haven't verified it:
+1. The skill shows it in the chat, readably.
+2. It points at any remaining placeholder or **(confirm)** line and asks you to fill or correct those, batched into one message.
+3. It offers the voice calibration below, then sets `confirmed: true` and continues.
+
+## Voice calibration from real writing (the highest-value step)
+Real samples are the single biggest lever for matching your voice. Rules get the writing close, samples get it right. Whenever you give samples, at setup or any time later, the skill runs [voice-analysis.md](voice-analysis.md) and fills the Voice fingerprint section of `profile.md`. It always offers this, and never blocks the work on it.
 
 ## Importing context from a prior chat
-
-The skill cannot read claude.ai web chat history directly. If the student wants to carry over context from an earlier conversation, have them paste the relevant part; fold the stable facts and preferences into `profile.md` (not the one-off details), confirm, and continue.
+The skill can't read claude.ai web chat history directly. If you want to carry over context, paste the relevant part. The skill folds the stable preferences (not the one-off details) into `profile.md`, confirms, and continues.
